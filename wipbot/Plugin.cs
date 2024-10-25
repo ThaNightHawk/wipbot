@@ -402,7 +402,7 @@ namespace wipbot
                     yield return new WaitForSeconds(0.5f);
                     foreach (BeatmapLevelPack levelPack in SongCore.Loader.CustomLevelsRepository.beatmapLevelPacks)
                     {
-                        foreach (BeatmapLevel level in levelPack.beatmapLevels)
+                        foreach (BeatmapLevel level in levelPack.AllBeatmapLevels())
                         {
                             if (level.levelID.StartsWith("custom_level_" + lvl.levelID.Split('_')[2]))
                             {
@@ -459,7 +459,7 @@ namespace wipbot
             public void init(GameObject parent)
             {
                 if (grayButtonTransform != null) return;
-                BSMLParser.instance.Parse(
+                BSMLParser.Instance.Parse(
                     "<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>" +
                     "<button id='gray-button' active='~gray-button-active' text='wip' font-size='3' on-click='gray-button-click' anchor-pos-x='" + Config.Instance.ButtonPositionX + "' anchor-pos-y='" + (Config.Instance.ButtonPositionY + 2) + "' pref-height='6' pref-width='11' />" +
                     "<action-button id='blue-button' active='~blue-button-active' text='~blue-button-text' hover-hint='~blue-button-hint' word-wrapping='false' font-size='3' on-click='blue-button-click' anchor-pos-x='" + (Config.Instance.ButtonPositionX - 80) + "' anchor-pos-y='" + (Config.Instance.ButtonPositionY + 5) + "' pref-height='6' pref-width='11' />" +
