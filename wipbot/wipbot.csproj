@@ -85,6 +85,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="manifest.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wipbot.csproj.user" Condition="Exists('wipbot.csproj.user')" />
   </ItemGroup>
 </Project>
