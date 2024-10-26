@@ -88,6 +88,11 @@ namespace wipbot
     public virtual int QueueSize { get; set; } = 9;
     public virtual int ButtonPositionX { get; set; } = 155;
     public virtual int ButtonPositionY { get; set; } = 4;
+
+    public virtual int ButtonFontSize { get; set; } = 4;
+    public virtual int ButtonPrefWidth { get; set; } = 20;
+    public virtual int ButtonPrefHeight { get; set; } = 10;
+
     public virtual string MessageHelp { get; set; } = "! To request a WIP, go to http://catse.net/wip or upload the .zip anywhere on discord or on google drive, copy the download link and use the command !wip (link)";
     public virtual string MessageInvalidRequest2 { get; set; } = "! Invalid request";
     public virtual string MessageWipRequested { get; set; } = "! WIP requested";
@@ -481,12 +486,39 @@ namespace wipbot
       public void Init(GameObject parent)
       {
         if (grayButtonTransform != null) return;
+
         BSMLParser.Instance.Parse(
-            "<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>" +
-            "<button id='gray-button' active='~gray-button-active' text='wip' font-size='5' on-click='gray-button-click' anchor-pos-x='" + Config.Instance.ButtonPositionX + "' anchor-pos-y='" + (Config.Instance.ButtonPositionY + 2) + "' pref-height='10' pref-width='20' />" +
-            "<action-button id='blue-button' active='~blue-button-active' text='~blue-button-text' hover-hint='~blue-button-hint' word-wrapping='false' font-size='5' on-click='blue-button-click' anchor-pos-x='" + (Config.Instance.ButtonPositionX - 80) + "' anchor-pos-y='" + (Config.Instance.ButtonPositionY + 5) + "' pref-height='10' pref-width='20' />" +
-            "</bg>"
-            , parent, this);
+          $@"
+            <bg
+              xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+              xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'
+            >
+              <button
+                id='gray-button'
+                active='~gray-button-active'
+                text='wip'
+                font-size='{Config.Instance.ButtonFontSize}'
+                on-click='gray-button-click'
+                anchor-pos-x='{Config.Instance.ButtonPositionX}'
+                anchor-pos-y='{Config.Instance.ButtonPositionY + 2}'
+                pref-height='{Config.Instance.ButtonPrefHeight}'
+                pref-width='{Config.Instance.ButtonPrefWidth}'
+              />
+              <action-button
+                id='blue-button'
+                active='~blue-button-active'
+                text='~blue-button-text'
+                hover-hint='~blue-button-hint'
+                word-wrapping='false'
+                font-size='{Config.Instance.ButtonFontSize}'
+                on-click='blue-button-click'
+                anchor-pos-x='{Config.Instance.ButtonPositionX - 80}'
+                anchor-pos-y='{Config.Instance.ButtonPositionY + 5}'
+                pref-height='{Config.Instance.ButtonPrefHeight}'
+                pref-width='{Config.Instance.ButtonPrefWidth}'
+              />
+            </bg>
+          ", parent, this);
       }
 
       [UIAction("blue-button-click")]
