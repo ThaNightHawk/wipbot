@@ -84,7 +84,6 @@
     </Reference>
   </ItemGroup>
 
-
   <ItemGroup>
     <EmbeddedResource Include="manifest.json" />
   </ItemGroup>
