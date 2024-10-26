@@ -18,6 +18,7 @@ using HMUI;
 using BeatSaberMarkupLanguage.Attributes;
 using System.Reflection;
 using IPA.Loader;
+using IPA.Utilities;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 namespace wipbot
@@ -85,13 +86,15 @@ namespace wipbot
     public virtual string CommandRequestWip { get; set; } = "!wip";
     public virtual string KeywordUndoRequest { get; set; } = "oops";
     public virtual QueueLimits QueueLimits { get; set; } = new QueueLimits { User = 2, Subscriber = 2, Vip = 2, Moderator = 2 };
+    
+    public virtual int ConfigVersion { get; set; } = 0;
     public virtual int QueueSize { get; set; } = 9;
-    public virtual int ButtonPositionX { get; set; } = 155;
-    public virtual int ButtonPositionY { get; set; } = 4;
+    public virtual int ButtonPositionX { get; set; } = 151;
+    public virtual int ButtonPositionY { get; set; } = -23;
 
-    public virtual int ButtonFontSize { get; set; } = 4;
-    public virtual int ButtonPrefWidth { get; set; } = 20;
-    public virtual int ButtonPrefHeight { get; set; } = 10;
+    public virtual int ButtonFontSize { get; set; } = 3;
+    public virtual int ButtonPrefWidth { get; set; } = 13;
+    public virtual int ButtonPrefHeight { get; set; } = 7;
 
     public virtual string MessageHelp { get; set; } = "! To request a WIP, go to http://catse.net/wip or upload the .zip anywhere on discord or on google drive, copy the download link and use the command !wip (link)";
     public virtual string MessageInvalidRequest2 { get; set; } = "! Invalid request";
@@ -166,12 +169,24 @@ namespace wipbot
     static SelectLevelCategoryViewController categoryController;
     static LevelSearchViewController searchController;
 
+    public void MigrateConfig_0 () {
+      if (Config.Instance.ConfigVersion == 0) {
+        Config.Instance.ButtonPositionX = 151;
+        Config.Instance.ButtonPositionY = -23;
+        Config.Instance.ButtonFontSize = 3;
+        Config.Instance.ButtonPrefWidth = 13;
+        Config.Instance.ButtonPrefHeight = 7;
+        Config.Instance.ConfigVersion = 1;
+      }
+    }
+
     [Init]
     public Plugin(IPALogger logger, IPA.Config.Config config)
     {
       Instance = this;
       Log = logger;
       Config.Instance = config.Generated<Config>();
+      MigrateConfig_0();
     }
 
     [OnStart]
