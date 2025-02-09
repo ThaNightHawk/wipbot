@@ -19,6 +19,7 @@ using BeatSaberMarkupLanguage.Attributes;
 using System.Reflection;
 using IPA.Loader;
 using IPA.Utilities;
+using IPA.Utilities.Async;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 namespace wipbot
@@ -255,7 +256,7 @@ namespace wipbot
             {
               wipQueue.RemoveAt(i);
               SendChatMessage(Config.Instance.MessageUndoRequest);
-              UpdateButtonState();
+              UnityMainThreadTaskScheduler.Factory.StartNew(() => { UpdateButtonState(); });
               break;
             }
           }
@@ -309,7 +310,7 @@ namespace wipbot
             wipUrl = wipUrl.Replace(Config.Instance.UrlFindReplacePairs[i], Config.Instance.UrlFindReplacePairs[i + 1]);
           wipQueue.Add(new QueueItem() { UserName = userName, DownloadUrl = wipUrl });
           SendChatMessage(Config.Instance.MessageWipRequested);
-          UpdateButtonState();
+          UnityMainThreadTaskScheduler.Factory.StartNew(() => { UpdateButtonState(); });
         }
       }
     }
@@ -325,12 +326,14 @@ namespace wipbot
       WebClient webClient = new();
       try
       {
-        WipbotButtonController.instance.BlueButtonText = "skip";
+        UnityMainThreadTaskScheduler.Factory.StartNew(() => { WipbotButtonController.instance.BlueButtonText = "skip"; });
         Thread.Sleep(1000);
         webClient.Headers.Add(HttpRequestHeader.UserAgent, "Beat Saber wipbot v1.16.0");
         if (!Directory.Exists(downloadFolder))
           Directory.CreateDirectory(downloadFolder);
-        webClient.DownloadProgressChanged += (sender, args) => { WipbotButtonController.instance.BlueButtonText = args.ProgressPercentage + "%"; };
+        webClient.DownloadProgressChanged += (sender, args) => {
+          UnityMainThreadTaskScheduler.Factory.StartNew(() => { WipbotButtonController.instance.BlueButtonText = args.ProgressPercentage + "%"; });
+        };
         Exception ex = null;
         webClient.DownloadFileCompleted += (sender, args) => { ex = args.Error; };
         webClient.DownloadFileAsync(new Uri(url), downloadFolder + "\\wipbot_tmp.zip");
@@ -414,7 +417,7 @@ namespace wipbot
           SendChatMessage(Config.Instance.ErrorMessageOther.Replace("%s", e.Message));
         webClient.CancelAsync();
       }
-      UpdateButtonState();
+      UnityMainThreadTaskScheduler.Factory.StartNew(() => { UpdateButtonState(); });
     }
 
     public static void OnLevelsRefreshed()
