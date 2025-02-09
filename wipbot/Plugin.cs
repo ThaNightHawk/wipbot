@@ -328,7 +328,7 @@ namespace wipbot
       {
         UnityMainThreadTaskScheduler.Factory.StartNew(() => { WipbotButtonController.instance.BlueButtonText = "skip"; });
         Thread.Sleep(1000);
-        webClient.Headers.Add(HttpRequestHeader.UserAgent, "Beat Saber wipbot v1.16.0");
+        webClient.Headers.Add(HttpRequestHeader.UserAgent, "Beat Saber wipbot v1.18.0");
         if (!Directory.Exists(downloadFolder))
           Directory.CreateDirectory(downloadFolder);
         webClient.DownloadProgressChanged += (sender, args) => {
