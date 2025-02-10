@@ -256,7 +256,7 @@ namespace wipbot
             {
               wipQueue.RemoveAt(i);
               SendChatMessage(Config.Instance.MessageUndoRequest);
-              UnityMainThreadTaskScheduler.Factory.StartNew(() => { UpdateButtonState(); });
+              UnityMainThreadTaskScheduler.Factory.StartNew(UpdateButtonState);
               break;
             }
           }
@@ -310,7 +310,7 @@ namespace wipbot
             wipUrl = wipUrl.Replace(Config.Instance.UrlFindReplacePairs[i], Config.Instance.UrlFindReplacePairs[i + 1]);
           wipQueue.Add(new QueueItem() { UserName = userName, DownloadUrl = wipUrl });
           SendChatMessage(Config.Instance.MessageWipRequested);
-          UnityMainThreadTaskScheduler.Factory.StartNew(() => { UpdateButtonState(); });
+          UnityMainThreadTaskScheduler.Factory.StartNew(UpdateButtonState);
         }
       }
     }
@@ -417,7 +417,7 @@ namespace wipbot
           SendChatMessage(Config.Instance.ErrorMessageOther.Replace("%s", e.Message));
         webClient.CancelAsync();
       }
-      UnityMainThreadTaskScheduler.Factory.StartNew(() => { UpdateButtonState(); });
+      UnityMainThreadTaskScheduler.Factory.StartNew(UpdateButtonState);
     }
 
     public static void OnLevelsRefreshed()
