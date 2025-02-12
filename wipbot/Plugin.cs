@@ -56,6 +56,7 @@ namespace wipbot
       "ogg",
       "egg",
       "wav",
+      "vivify",
       ""
     ];
     [UseConverter(typeof(ListConverter<string>))]
