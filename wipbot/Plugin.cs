@@ -91,12 +91,12 @@ namespace wipbot
     
     public virtual int ConfigVersion { get; set; } = 0;
     public virtual int QueueSize { get; set; } = 9;
-    public virtual int ButtonPositionX { get; set; } = 151;
-    public virtual int ButtonPositionY { get; set; } = -23;
+    public virtual int ButtonPositionX { get; set; } = 138;
+    public virtual int ButtonPositionY { get; set; } = -4;
 
     public virtual int ButtonFontSize { get; set; } = 3;
-    public virtual int ButtonPrefWidth { get; set; } = 13;
-    public virtual int ButtonPrefHeight { get; set; } = 7;
+    public virtual int ButtonPrefWidth { get; set; } = 11;
+    public virtual int ButtonPrefHeight { get; set; } = 6;
 
     public virtual string MessageHelp { get; set; } = "! To request a WIP, go to http://catse.net/wip or upload the .zip anywhere on discord or on google drive, copy the download link and use the command !wip (link)";
     public virtual string MessageInvalidRequest2 { get; set; } = "! Invalid request";
@@ -173,11 +173,11 @@ namespace wipbot
 
     public void MigrateConfig_0 () {
       if (Config.Instance.ConfigVersion == 0) {
-        Config.Instance.ButtonPositionX = 151;
-        Config.Instance.ButtonPositionY = -23;
+        Config.Instance.ButtonPositionX = 138;
+        Config.Instance.ButtonPositionY = -4;
         Config.Instance.ButtonFontSize = 3;
-        Config.Instance.ButtonPrefWidth = 13;
-        Config.Instance.ButtonPrefHeight = 7;
+        Config.Instance.ButtonPrefWidth = 11;
+        Config.Instance.ButtonPrefHeight = 6;
         Config.Instance.ConfigVersion = 1;
         if (!Config.Instance.FileExtensionWhitelist.Contains("vivify"))
           Config.Instance.FileExtensionWhitelist.Add("vivify");
