@@ -179,6 +179,8 @@ namespace wipbot
         Config.Instance.ButtonPrefWidth = 13;
         Config.Instance.ButtonPrefHeight = 7;
         Config.Instance.ConfigVersion = 1;
+        if (!Config.Instance.FileExtensionWhitelist.Contains("vivify"))
+          Config.Instance.FileExtensionWhitelist.Add("vivify");
       }
     }
 
