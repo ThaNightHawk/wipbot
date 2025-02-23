@@ -19,6 +19,7 @@ using BeatSaberMarkupLanguage.Attributes;
 using System.Reflection;
 using IPA.Loader;
 using IPA.Utilities;
+using IPA.Utilities.Async;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 namespace wipbot
@@ -55,6 +56,7 @@ namespace wipbot
       "ogg",
       "egg",
       "wav",
+      "vivify",
       ""
     ];
     [UseConverter(typeof(ListConverter<string>))]
@@ -89,12 +91,12 @@ namespace wipbot
     
     public virtual int ConfigVersion { get; set; } = 0;
     public virtual int QueueSize { get; set; } = 9;
-    public virtual int ButtonPositionX { get; set; } = 151;
-    public virtual int ButtonPositionY { get; set; } = -23;
+    public virtual int ButtonPositionX { get; set; } = 138;
+    public virtual int ButtonPositionY { get; set; } = -4;
 
     public virtual int ButtonFontSize { get; set; } = 3;
-    public virtual int ButtonPrefWidth { get; set; } = 13;
-    public virtual int ButtonPrefHeight { get; set; } = 7;
+    public virtual int ButtonPrefWidth { get; set; } = 11;
+    public virtual int ButtonPrefHeight { get; set; } = 6;
 
     public virtual string MessageHelp { get; set; } = "! To request a WIP, go to http://catse.net/wip or upload the .zip anywhere on discord or on google drive, copy the download link and use the command !wip (link)";
     public virtual string MessageInvalidRequest2 { get; set; } = "! Invalid request";
@@ -171,12 +173,14 @@ namespace wipbot
 
     public void MigrateConfig_0 () {
       if (Config.Instance.ConfigVersion == 0) {
-        Config.Instance.ButtonPositionX = 151;
-        Config.Instance.ButtonPositionY = -23;
+        Config.Instance.ButtonPositionX = 138;
+        Config.Instance.ButtonPositionY = -4;
         Config.Instance.ButtonFontSize = 3;
-        Config.Instance.ButtonPrefWidth = 13;
-        Config.Instance.ButtonPrefHeight = 7;
+        Config.Instance.ButtonPrefWidth = 11;
+        Config.Instance.ButtonPrefHeight = 6;
         Config.Instance.ConfigVersion = 1;
+        if (!Config.Instance.FileExtensionWhitelist.Contains("vivify"))
+          Config.Instance.FileExtensionWhitelist.Add("vivify");
       }
     }
 
@@ -255,7 +259,7 @@ namespace wipbot
             {
               wipQueue.RemoveAt(i);
               SendChatMessage(Config.Instance.MessageUndoRequest);
-              UpdateButtonState();
+              UnityMainThreadTaskScheduler.Factory.StartNew(UpdateButtonState);
               break;
             }
           }
@@ -309,7 +313,7 @@ namespace wipbot
             wipUrl = wipUrl.Replace(Config.Instance.UrlFindReplacePairs[i], Config.Instance.UrlFindReplacePairs[i + 1]);
           wipQueue.Add(new QueueItem() { UserName = userName, DownloadUrl = wipUrl });
           SendChatMessage(Config.Instance.MessageWipRequested);
-          UpdateButtonState();
+          UnityMainThreadTaskScheduler.Factory.StartNew(UpdateButtonState);
         }
       }
     }
@@ -325,12 +329,14 @@ namespace wipbot
       WebClient webClient = new();
       try
       {
-        WipbotButtonController.instance.BlueButtonText = "skip";
+        UnityMainThreadTaskScheduler.Factory.StartNew(() => { WipbotButtonController.instance.BlueButtonText = "skip"; });
         Thread.Sleep(1000);
-        webClient.Headers.Add(HttpRequestHeader.UserAgent, "Beat Saber wipbot v1.16.0");
+        webClient.Headers.Add(HttpRequestHeader.UserAgent, "Beat Saber wipbot v1.18.0");
         if (!Directory.Exists(downloadFolder))
           Directory.CreateDirectory(downloadFolder);
-        webClient.DownloadProgressChanged += (sender, args) => { WipbotButtonController.instance.BlueButtonText = args.ProgressPercentage + "%"; };
+        webClient.DownloadProgressChanged += (sender, args) => {
+          UnityMainThreadTaskScheduler.Factory.StartNew(() => { WipbotButtonController.instance.BlueButtonText = args.ProgressPercentage + "%"; });
+        };
         Exception ex = null;
         webClient.DownloadFileCompleted += (sender, args) => { ex = args.Error; };
         webClient.DownloadFileAsync(new Uri(url), downloadFolder + "\\wipbot_tmp.zip");
@@ -414,7 +420,7 @@ namespace wipbot
           SendChatMessage(Config.Instance.ErrorMessageOther.Replace("%s", e.Message));
         webClient.CancelAsync();
       }
-      UpdateButtonState();
+      UnityMainThreadTaskScheduler.Factory.StartNew(UpdateButtonState);
     }
 
     public static void OnLevelsRefreshed()
