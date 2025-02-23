@@ -88,7 +88,7 @@ namespace wipbot
     public virtual string CommandRequestWip { get; set; } = "!wip";
     public virtual string KeywordUndoRequest { get; set; } = "oops";
     public virtual QueueLimits QueueLimits { get; set; } = new QueueLimits { User = 2, Subscriber = 2, Vip = 2, Moderator = 2 };
-    
+
     public virtual int ConfigVersion { get; set; } = 0;
     public virtual int QueueSize { get; set; } = 9;
     public virtual int ButtonPositionX { get; set; } = 138;
@@ -170,17 +170,40 @@ namespace wipbot
     static LevelCollectionNavigationController navigationController;
     static SelectLevelCategoryViewController categoryController;
     static LevelSearchViewController searchController;
+    public void MigrateConfig_0()
+    {
+      if (Config.Instance.ConfigVersion == 0)
+      {
+        Config.Instance.ButtonPositionX = 151;
+        Config.Instance.ButtonPositionY = -23;
+        Config.Instance.ButtonFontSize = 3;
+        Config.Instance.ButtonPrefWidth = 13;
+        Config.Instance.ButtonPrefHeight = 7;
+        Config.Instance.ConfigVersion = 1;
+      }
+    }
 
-    public void MigrateConfig_0 () {
-      if (Config.Instance.ConfigVersion == 0) {
+    public void MigrateConfig_1()
+    {
+      if (Config.Instance.ConfigVersion == 1)
+      {
+        if (!Config.Instance.FileExtensionWhitelist.Contains("vivify"))
+        {
+          Config.Instance.FileExtensionWhitelist.Add("vivify");
+        }
+        Config.Instance.ConfigVersion = 2;
+      }
+    }
+
+    public void MigrateConfig_2()
+    {
+      if (Config.Instance.ConfigVersion == 2)
+      {
         Config.Instance.ButtonPositionX = 138;
         Config.Instance.ButtonPositionY = -4;
-        Config.Instance.ButtonFontSize = 3;
         Config.Instance.ButtonPrefWidth = 11;
         Config.Instance.ButtonPrefHeight = 6;
-        Config.Instance.ConfigVersion = 1;
-        if (!Config.Instance.FileExtensionWhitelist.Contains("vivify"))
-          Config.Instance.FileExtensionWhitelist.Add("vivify");
+        Config.Instance.ConfigVersion = 3;
       }
     }
 
@@ -191,6 +214,8 @@ namespace wipbot
       Log = logger;
       Config.Instance = config.Generated<Config>();
       MigrateConfig_0();
+      MigrateConfig_1();
+      MigrateConfig_2();
     }
 
     [OnStart]
@@ -331,10 +356,11 @@ namespace wipbot
       {
         UnityMainThreadTaskScheduler.Factory.StartNew(() => { WipbotButtonController.instance.BlueButtonText = "skip"; });
         Thread.Sleep(1000);
-        webClient.Headers.Add(HttpRequestHeader.UserAgent, "Beat Saber wipbot v1.18.0");
+        webClient.Headers.Add(HttpRequestHeader.UserAgent, "Beat Saber wipbot v1.19.0");
         if (!Directory.Exists(downloadFolder))
           Directory.CreateDirectory(downloadFolder);
-        webClient.DownloadProgressChanged += (sender, args) => {
+        webClient.DownloadProgressChanged += (sender, args) =>
+        {
           UnityMainThreadTaskScheduler.Factory.StartNew(() => { WipbotButtonController.instance.BlueButtonText = args.ProgressPercentage + "%"; });
         };
         Exception ex = null;
