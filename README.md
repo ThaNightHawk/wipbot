@@ -1,4 +1,4 @@
-# wipbot for beat saber streamers
+# WIPbot for Beat Saber streamers
 
 > [!NOTE]
 > Required BeatSaberPlus or CatCore.  
