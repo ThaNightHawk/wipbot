@@ -1,0 +1,68 @@
+{
+  "ZipMaxEntries": 100,
+  "ZipMaxUncompressedSizeMB": 100,
+  "FileExtensionWhitelist": [
+    "png",
+    "jpg",
+    "jpeg",
+    "dat",
+    "json",
+    "ogg",
+    "egg",
+    "wav",
+    "vivify",
+    ""
+  ],
+  "RequestCodePrefixDownloadUrlPairs": [
+    "0",
+    "https://wip.hawk.quest/upload/%s.zip"
+  ],
+  "RequestCodeCharacterWhitelist": "0123456789abcdefABCDEF",
+  "UrlWhitelist": [
+    "https://cdn.discordapp.com/",
+    "https://drive.google.com/file/d/",
+    "https://wip.hawk.quest/"
+  ],
+  "UrlFindReplacePairs": [
+    "https://drive.google.com/file/d/",
+    "https://drive.google.com/uc?id=",
+    "/view?usp=sharing",
+    "&export=download&confirm=t",
+    "/view?usp=drive_link",
+    "&export=download&confirm=t"
+  ],
+  "WipFolder": "Beat Saber_Data\\CustomWIPLevels\\",
+  "CommandRequestWip": "!wip",
+  "KeywordUndoRequest": "oops",
+  "QueueLimits": {
+    "User": 2,
+    "Subscriber": 2,
+    "Vip": 2,
+    "Moderator": 2
+  },
+  "ConfigVersion": 3,
+  "QueueSize": 9,
+  "ButtonPositionX": 138,
+  "ButtonPositionY": -4,
+  "ButtonFontSize": 3,
+  "ButtonPrefWidth": 11,
+  "ButtonPrefHeight": 6,
+  "MessageHelp": "! To request a WIP, go to https://wip.hawk.quest/ or upload the .zip anywhere on discord or on google drive, copy the download link and use the command !wip (link)",
+  "MessageInvalidRequest2": "! Invalid request",
+  "MessageWipRequested": "! WIP requested",
+  "MessageUndoRequest": "! Removed your latest request from wip queue",
+  "MessageDownloadSuccess2": "! Downloaded WIP from @%s",
+  "MessageDownloadCancelled": "! WIP download cancelled",
+  "ErrorMessageTooManyEntries": "! Error: Zip contains more than %i entries",
+  "ErrorMessageInvalidFilename": "! Error: Zip contains file with invalid name",
+  "ErrorMessageMaxLength": "! Error: Zip uncompressed length >%i MB",
+  "ErrorMessageExtractionFailed": "! Error: Zip extraction failed",
+  "ErrorMessageBadExtension2": "! Skipped %i files during extraction due to forbidden file extensions %s",
+  "ErrorMessageMissingInfoDat": "! Error: WIP missing info.dat",
+  "ErrorMessageDownloadFailed2": "! Error: WIP download failed (%s)",
+  "ErrorMessageOther": "! Error: %s",
+  "ErrorMessageLinkBlocked": "! Error: Your link was blocked by the channel's chat moderation settings",
+  "ErrorMessageQueueFull": "! Error: The wip request queue is full",
+  "ErrorMessageUserMaxRequests": "! Error: You already have the maximum number of wip requests in queue",
+  "ErrorMessageNoPermission": "! Error: You don't have permission to use the wip command"
+}
