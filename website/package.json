@@ -1,0 +1,31 @@
+{
+  "name": "wip-uploader",
+  "version": "1.0.0",
+  "description": "WIP file uploader with automatic cleanup",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "express": "^latest",
+    "multer": "^latest",
+    "node-cron": "^latest",
+    "yauzl": "^latest",
+    "cors": "^latest",
+    "helmet": "^latest"
+  },
+  "devDependencies": {
+    "@types/express": "^latest",
+    "@types/multer": "^latest",
+    "@types/node": "^latest",
+    "@types/node-cron": "^latest",
+    "@types/yauzl": "^latest",
+    "@types/cors": "^latest",
+    "ts-node-dev": "^latest",
+    "typescript": "^latest",
+    "rimraf": "^latest"
+  }
+}

@@ -18,4 +18,6 @@ Examples:
 After someone has requested a wip, press the WIP button to download it:
 ![image](https://user-images.githubusercontent.com/45233053/205438155-c58a499b-1b7a-4049-af67-30d15e1b1f6e.png)
 
+> [!NOTE]
+> You can also selfhost this, if you want to, by deploying `website` on your server
 

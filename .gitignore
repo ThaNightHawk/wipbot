@@ -2,3 +2,6 @@
 wipbot/wipbot.csproj.user
 wipbot/bin
 wipbot/obj
+wipbot/.vs
+website/node_modules
+website/public/upload

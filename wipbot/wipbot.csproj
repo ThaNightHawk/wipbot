@@ -7,6 +7,11 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <GameDirectory>$(AdjustThis)</GameDirectory>
+    <BeatSaberDir>$(GameDirectory)</BeatSaberDir>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="BeatSaberModdingTools.Tasks" Version="2.0.0-beta7">
       <PrivateAssets>all</PrivateAssets>
@@ -37,11 +42,9 @@
     <Reference Include="SegmentedControl">
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\SegmentedControl.dll</HintPath>
     </Reference>
-      <Reference Include="BeatSaber.ViewSystem">
-        <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\BeatSaber.ViewSystem.dll</HintPath>
-	    <Publicize>True</Publicize>
-      </Reference>
-
+    <Reference Include="BeatSaber.ViewSystem">
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\BeatSaber.ViewSystem.dll</HintPath>
+    </Reference>
     <Reference Include="DataModels">
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\DataModels.dll</HintPath>
       <Private>False</Private>
