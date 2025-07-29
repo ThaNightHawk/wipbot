@@ -1,8 +1,10 @@
 # WIPbot for Beat Saber streamers
 
 > [!NOTE]
-> Required BeatSaberPlus or CatCore.  
-> Make sure your channel moderation settings allow posting links in chat, otherwise only VIPs and above can post wip download links.  
+> Required BeatSaberPlus or CatCore.
+>   
+> Make sure your channel moderation settings allow posting links in chat, otherwise only VIPs and above can post wip download links.
+>   
 > Request codes obtained from the dedicated website can be used 99.9% of the time. (Unless Cloudflare or Oracle Cloud dies)
 
 ~~I also won't cry, bitch and moan, ultimately ending up defacing my own website and plastering it with furryporn, like some fucking weirdo.~~
