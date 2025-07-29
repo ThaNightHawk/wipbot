@@ -264,7 +264,7 @@
           const result = await response.json();
 
           if (result.success) {
-            const wipCode = `!wip ${result.bsrCode}`;
+            const wipCode = `!wip ${result.url}`;
             showStatus(
               `File uploaded successfully!<br>` +
                 `WIP request code: <strong class="copy-code" onclick="copyToClipboard('${wipCode}')" title="Click to copy">${wipCode}</strong><br>` +

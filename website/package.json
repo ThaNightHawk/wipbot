@@ -1,5 +1,7 @@
 {
   "name": "wip-uploader",
+  "license": "MIT",
+  "author": "ThaNightHawk <Patrick Sørensen>",
   "version": "1.0.0",
   "description": "WIP file uploader with automatic cleanup",
   "main": "dist/server.js",
