@@ -25,7 +25,7 @@ Make sure `wipbot.json` does **NOT** exist in `UserData` if you're doing a clean
 ## This plugin adds the ``!wip`` command to your Twitch chat.  
 Examples:  
 ``!wip`` prints a help message in chat  
-``!wip e5a5bb`` using a request code obtained from https://wip.thnght.pro/  
+``!wip e5a5bb`` using a request code obtained from [here!](https://wip.hawk.quest/)  
 ``!wip https://cdn.discordapp.com/attachments/9106712553161/9165053429928/Example_Wip.zip`` using Discord  
 ``!wip https://drive.google.com/file/d/1rcs9V_aq1kBjNhAQUdFz7f7kvWR/view?usp=sharing`` using Google Drive  
 ``!wip oops`` removes users most recent request from queue
