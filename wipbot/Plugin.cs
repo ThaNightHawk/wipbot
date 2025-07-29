@@ -236,7 +236,7 @@ namespace wipbot
             {
                 Plugin.Log.Info("Failed to initialize chat");
             }
-            Harmony harmony = new("Catse.BeatSaber.wipbot");
+            Harmony harmony = new("Hawk.BeatSaber.wipbot");
             harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
             SongCore.Loader.OnLevelPacksRefreshed += OnLevelsRefreshed;
         }

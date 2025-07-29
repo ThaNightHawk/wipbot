@@ -2,10 +2,10 @@
   "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
   "id": "wipbot",
   "name": "wipbot",
-  "author": "Catse",
-  "version": "1.19.0",
+  "author": "NightHawk",
+  "version": "1.20.0",
   "description": "",
-  "gameVersion": "1.38.0",
+  "gameVersion": "1.40.6",
   "dependsOn": {
     "BSIPA": "^4.0.5",
     "SongCore": "^3.0.0",
