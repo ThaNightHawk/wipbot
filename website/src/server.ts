@@ -4,14 +4,12 @@ import path from 'path';
 import fs from 'fs/promises';
 import cors from 'cors';
 import helmet from 'helmet';
-import cron from 'node-cron';
 import yauzl from 'yauzl';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const UPLOAD_DIR = path.join(__dirname, '../public/upload');
 const MAX_FILE_SIZE = 64 * 1024 * 1024; // 64MB
-const FILE_AGE_LIMIT = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
 
 app.use(helmet({
   contentSecurityPolicy: false
@@ -88,34 +86,6 @@ const upload = multer({
   }
 });
 
-async function cleanupOldFiles() {
-  try {
-    const files = await fs.readdir(UPLOAD_DIR);
-    const now = Date.now();
-    let deletedCount = 0;
-
-    for (const file of files) {
-      const filePath = path.join(UPLOAD_DIR, file);
-      const stats = await fs.stat(filePath);
-
-      if (now - stats.mtime.getTime() > FILE_AGE_LIMIT) {
-        await fs.unlink(filePath);
-        deletedCount++;
-        console.log(`Deleted old file: ${file}`);
-      }
-    }
-
-    console.log(`Cleanup completed. Deleted ${deletedCount} files.`);
-  } catch (error) {
-    console.error('Error during cleanup:', error);
-  }
-}
-
-cron.schedule('0 */6 * * *', () => {
-  console.log('Running scheduled cleanup...');
-  cleanupOldFiles();
-});
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
@@ -158,7 +128,7 @@ app.post('/upload', upload.single('zipfile'), async (req, res) => {
 
       await fs.rename(tempFilePath, newFilePath);
 
-      const fileUrl = `${req.protocol}://${req.get('host')}/upload/${newFilename}`;
+      const fileUrl = `https://${req.get('host')}/upload/${newFilename}`;
       const bsrCode = newFilename.replace('.zip', '');
 
       res.json({
@@ -206,14 +176,12 @@ app.use((error: any, req: express.Request, res: express.Response, next: express.
   res.status(500).json({ error: 'Internal server error' });
 });
 
-// Start server
 async function startServer() {
   await ensureUploadDir();
 
   app.listen(PORT, () => {
     console.log(`WIP Uploader server running on port ${PORT}`);
     console.log(`Upload directory: ${UPLOAD_DIR}`);
-    console.log('Cleanup scheduled every 6 hours');
   });
 }
 

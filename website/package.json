@@ -8,13 +8,13 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
+    "prod": "tsc && node dist/server.js",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "clean": "rimraf dist"
   },
   "dependencies": {
     "express": "^latest",
     "multer": "^latest",
-    "node-cron": "^latest",
     "yauzl": "^latest",
     "cors": "^latest",
     "helmet": "^latest"
@@ -23,11 +23,9 @@
     "@types/express": "^latest",
     "@types/multer": "^latest",
     "@types/node": "^latest",
-    "@types/node-cron": "^latest",
     "@types/yauzl": "^latest",
     "@types/cors": "^latest",
     "ts-node-dev": "^latest",
-    "typescript": "^latest",
-    "rimraf": "^latest"
+    "typescript": "^5.8.3"
   }
 }
