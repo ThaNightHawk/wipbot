@@ -63,7 +63,8 @@ namespace wipbot
         [NonNullable]
         public virtual List<string> RequestCodePrefixDownloadUrlPairs { get; set; } = [
             "0",
-            "https://wip.hawk.quest/upload/%s.zip"
+            "https://wip.hawk.quest/upload/%s.zip",
+            "https://thnght.pro/upload/%s.zip"
         ];
         public virtual string RequestCodeCharacterWhitelist { get; set; } = "0123456789abcdefABCDEF";
 
@@ -72,7 +73,8 @@ namespace wipbot
         public virtual List<string> UrlWhitelist { get; set; } = [
             "https://cdn.discordapp.com/",
             "https://drive.google.com/file/d/",
-            "https://wip.hawk.quest/"
+            "https://wip.hawk.quest/",
+            "https://thnght.pro/"
         ];
 
         [UseConverter(typeof(ListConverter<string>))]
@@ -629,4 +631,5 @@ namespace wipbot
         }
 
     }
+
 }
