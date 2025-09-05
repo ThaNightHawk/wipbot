@@ -15,13 +15,15 @@
   ],
   "RequestCodePrefixDownloadUrlPairs": [
     "0",
-    "https://wip.hawk.quest/upload/%s.zip"
+    "https://wip.hawk.quest/upload/%s.zip",
+    "https://thnght.pro/upload/%s.zip"
   ],
   "RequestCodeCharacterWhitelist": "0123456789abcdefABCDEF",
   "UrlWhitelist": [
     "https://cdn.discordapp.com/",
     "https://drive.google.com/file/d/",
-    "https://wip.hawk.quest/"
+    "https://wip.hawk.quest/",
+    "https://thnght.pro/"
   ],
   "UrlFindReplacePairs": [
     "https://drive.google.com/file/d/",
