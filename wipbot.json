@@ -15,15 +15,16 @@
   ],
   "RequestCodePrefixDownloadUrlPairs": [
     "0",
-    "https://wip.hawk.quest/upload/%s.zip",
-    "https://thnght.pro/upload/%s.zip"
+    "https://wipbot.com/wips/%s.zip",
+    "8",
+    "https://wip.hawk.quest/wips/%s.zip",
+    "9",
+    "https://thnght.pro/wips/%s.zip"
   ],
   "RequestCodeCharacterWhitelist": "0123456789abcdefABCDEF",
   "UrlWhitelist": [
     "https://cdn.discordapp.com/",
-    "https://drive.google.com/file/d/",
-    "https://wip.hawk.quest/",
-    "https://thnght.pro/"
+    "https://drive.google.com/file/d/"
   ],
   "UrlFindReplacePairs": [
     "https://drive.google.com/file/d/",
@@ -49,7 +50,7 @@
   "ButtonFontSize": 3,
   "ButtonPrefWidth": 11,
   "ButtonPrefHeight": 6,
-  "MessageHelp": "! To request a WIP, go to https://wip.hawk.quest/ or upload the .zip anywhere on discord or on google drive, copy the download link and use the command !wip (link)",
+  "MessageHelp": "! To request a WIP, upload the map to https://wip.hawk.quest/ or https://wipbot.com/, or upload the .zip anywhere on discord or on google drive, copy the download link and use the command !wip (code/link)",
   "MessageInvalidRequest2": "! Invalid request",
   "MessageWipRequested": "! WIP requested",
   "MessageUndoRequest": "! Removed your latest request from wip queue",
